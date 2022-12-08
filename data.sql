@@ -12,6 +12,7 @@ CREATE TABLE invoices (
     tva INTEGER NOT NULL,
     aib_maj INTEGER NOT NULL, 
     aib_retained INTEGER NOT NULL,
+    other_fee INTEGER NOT NULL,
     file_src VARCHAR(255) NOT NULL UNIQUE,
     clients_invoices int,
     FOREIGN KEY(clients_invoices) REFERENCES clients(id)

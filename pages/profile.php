@@ -2,6 +2,10 @@
 $page_title = "AJOUTER CLIENT / FACTURE";
 require_once('./includes/header.php');
 require('../src/model/client.php');
+$client = new ClientAction;
+$clients = $client->get_clients();
+$client->create_client();
+$client->delete_client();
 ?>
 
 
@@ -12,19 +16,18 @@ require('../src/model/client.php');
             <div class="card h-100">
                 <div class="card-header pb-0 p-3">
                     <div class="row">
-                        <div class="col-md-8 d-flex align-items-center">
+                        <div class="col-md-8 ">
                             <h6 class="mb-0">Ajouter une Facture</h6>
+                            <p class="mb-0 alert alert-warning" id="invoices_prerequisites"><?= ClientAction::$invoices_prerequisites ?></p>
                         </div>
                     </div>
                 </div>
-                <div class="card-body p-3">
+                <div class="card-body p-3" id="add_invoices_form">
                     <form action="" method="post">
                         <div class="form-group">
                             <label for="client">Client</label>
                             <select class="form-select" aria-label="" required>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <?php $client->rend_clients($clients) ?>
                             </select>
                         </div>
 
@@ -64,7 +67,7 @@ require('../src/model/client.php');
                             <label for="formFile" class="form-label">Joindre la Facture</label>
                             <input class="form-control" type="file" id="formFile">
                         </div>
-                        <button type="submit" class="w-100 btn btn-secondary">Soumettre</button>
+                        <button type="submit" class="w-100 btn btn-secondary" <?= ClientAction::$add_invoices_statement ?>>Soumettre</button>
                     </form>
 
                 </div>
@@ -72,7 +75,7 @@ require('../src/model/client.php');
         </div>
 
         <!-- Supprimer une facture -->
-        <div class="col-12 col-xl-4">
+        <div class="col-12 col-xl-4 mt-2">
             <div class="card h-auto">
                 <div class="card-header pb-0 p-3">
                     <h6 class="mb-0">Supprimer une Facture</h6>
@@ -92,6 +95,7 @@ require('../src/model/client.php');
     </div>
 
     <div class="row mt-3">
+        <!-- Ajouter un client -->
         <div class="col-12 col-xl-6">
             <div class="card h-auto">
                 <div class="card-header pb-0 p-3">
@@ -100,15 +104,17 @@ require('../src/model/client.php');
                 <div class="card-body p-3">
                     <form action="" method="post">
                         <div class="form-group">
-                            <label for="sigle">Client Sigle:</label>
-                            <input type="text" class="form-control" id="sigle" required>
+                            <label for="add_sigle">Client Sigle:</label>
+                            <input type="text" class="form-control" id="add_sigle" required name="add_sigle">
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        <button type="submit" class="btn bg-gradient-info w-100">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Supprimer un client -->
         <div class="col-12 col-xl-6">
             <div class="card h-auto mt-2">
                 <div class="card-header pb-0 p-3">
@@ -117,8 +123,8 @@ require('../src/model/client.php');
                 <div class="card-body p-3">
                     <form action="" method="post">
                         <div class="form-group">
-                            <label for="sigle">Client Sigle:</label>
-                            <input type="text" class="form-control" id="sigle" required>
+                            <label for="delete_sigle">Client Sigle:</label>
+                            <input type="text" class="form-control" id="delete_sigle" required name="delete_sigle">
                         </div>
 
                         <button type="submit" class="btn btn-danger w-100">Submit</button>

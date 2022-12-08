@@ -1,22 +1,19 @@
 <?php
 
 class DatabaseConnexion {
-    public ?PDO $database = null;
+    public static   $database = null;
 
-    public string $hostname = '217.21.77.51';
-    public string $dbname = 'u627428193_account';
-    public string $username = 'u627428193_rds';
-    public string $password = 'u627428193_Rds@@';
+    private static  string $hostname = '217.21.77.51';
+    private static  string $dbname = 'u627428193_account';
+    private static  string $username = 'u627428193_rds';
+    private static  string $password = 'u627428193_Rds@@';
 
-    public function getConnexion():PDO {
-        if($this->database === null) {
-            $this->database = new PDO(
-                'mysql:host='.$this->hostname.'; dbname='.$this->dbname.';',
-                ''.$this->username.'',
-                ''.$this->password.''
-            );
+    public static function getConnexion() {
+
+        if(self::$database === null) {
+            self::$database = new mysqli(self::$hostname, self::$username, self::$password, self::$dbname);
         }
-        return $this->database;
+        return self::$database;
 
     }
 }
